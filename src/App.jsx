@@ -20,8 +20,8 @@ export const App = () => {
   const [isReversed, setIsReversed] = useState(false);
   const [sortType, setSortType] = useState('');
 
-  const handleSortAlphabetically = () => {
-    const sortedGoods = [...goods].sort();
+  const sortAlphabetically = () => {
+    const sortedGoods = [...goodsFromServer].sort();
 
     setGoods(isReversed ? sortedGoods.reverse() : sortedGoods);
     setSortType('alphabet');
@@ -29,7 +29,9 @@ export const App = () => {
   };
 
   const handleSortByLength = () => {
-    const sortedGoods = [...goods].sort((a, b) => a.length - b.length);
+    const sortedGoods = [...goodsFromServer].sort(
+      (a, b) => a.length - b.length,
+    );
 
     setGoods(isReversed ? sortedGoods.reverse() : sortedGoods);
     setSortType('length');
@@ -42,7 +44,7 @@ export const App = () => {
   };
 
   const handleReset = () => {
-    setGoods(goods);
+    setGoods(goodsFromServer);
     setSortType('');
     setIsReversed(false);
   };
@@ -55,15 +57,19 @@ export const App = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sortType === 'alphabet' ? 'is-light' : ''}`}
-          onClick={handleSortAlphabetically}
+          className={`button is-info ${
+            sortType === 'alphabet' ? '' : 'is-light'
+          }`}
+          onClick={sortAlphabetically}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          className={`button is-success ${sortType === 'length' ? 'is-light' : ''}`}
+          className={`button is-success ${
+            sortType === 'length' ? '' : 'is-light'
+          }`}
           onClick={handleSortByLength}
         >
           Sort by length
@@ -71,7 +77,7 @@ export const App = () => {
 
         <button
           type="button"
-          className={`button is-warning ${isReversed ? 'is-light' : ''}`}
+          className={`button is-warning ${isReversed ? '' : 'is-light'}`}
           onClick={handleReverse}
         >
           Reverse
